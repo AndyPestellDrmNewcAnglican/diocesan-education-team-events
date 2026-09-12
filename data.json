@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "title": "Test Event 1",
+    "date": "15 September 2026"
+  },
+  {
+    "title": "Test Event 2",
+    "date": "20 September 2026"
+  }
+]
