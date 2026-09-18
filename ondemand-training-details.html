@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Training Details</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    margin:20px;
+    max-width:900px;
+}
+
+.button{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 24px;
+    background:#0066cc;
+    color:white;
+    text-decoration:none;
+    border-radius:4px;
+}
+
+.button:hover{
+    background:#004f9e;
+}
+
+.back{
+    margin-bottom:20px;
+    display:inline-block;
+}
+
+</style>
+</head>
+
+<body>
+
+ondemand-training-gallery.html
+
+← Back to Training
+
+</a>
+
+<div id="details">
+
+Loading training information...
+
+</div>
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const guid =
+    params.get('id');
+
+fetch('ondemand-training.json')
+
+.then(response => response.json())
+
+.then(data => {
+
+    const training =
+        data.find(
+            item => item.guid === guid
+        );
+
+    if(!training){
+
+        document.getElementById('details')
+        .innerHTML =
+        '<h2>Training not found</h2>';
+
+        return;
+    }
+
+    document.title =
+        training.title;
+
+    document.getElementById('details')
+    .innerHTML =
+
+    `
+    <h1>
+        ${training.title || ''}
+    </h1>
+
+    <p>
+        ${training.description || 'No description available.'}
+    </p>
+
+    <h3>Cost</h3>
+
+    <p>
+        Diocese schools:
+        £${training.diocesecost || 0}
+    </p>
+
+    <p>
+        Other schools:
+        £${training.othercost || 0}
+    </p>
+
+    <a
+        class="button"
+        target="_blank"
+        href="${training.bookingform}">
+        Book Now
+    </a>
+    `;
+});
+
+</script>
+
+</body>
+</html>
